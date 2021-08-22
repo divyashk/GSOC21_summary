@@ -4,7 +4,7 @@ Title : GUI for listing and managing available IPP Print/Scan services (or DNS-S
 Description : 
 These project is a combination of the gtk+  frontend library and the avahi-client backend. Using these 2 technologies I built an easily accessible tool housed in the gnome-control-center that can list all the available ipp(s) and http(s) services broadcasted on a network. The network printing architecture requires people to get used to such services as network printers are broadcasted using these ipp services. 
 
-DNS-SD has been around for quite sometime now but most of the users are unaware of such services being broadcasted. This tool can list all such services with a click of a button. It does'nt just list them after removing duplicates from different network interfaces, but also allow you to navigate to their respective administration website url. This makes using these services very user friendly.
+DNS-SD has been around for quite sometime now but most of the users are unaware of such services being broadcasted. This tool can list all such services with a click of a button. It does'nt just list them but also removes duplicates from different network interfaces, and also allow you to navigate to their respective administration website url. This makes using these services very user friendly.
 
 # Implementation details 
 
@@ -26,7 +26,7 @@ We will be needing composite widget for each service entry of the list as they a
 ## pp-dns-window .ui .c .h
 
 The design for this window in glade is very simple and looks something like
-
+<img src="window_glade.png">
 
 
 This is pretty much an empty window with a single widget housed, i.e. is a GtkListBox. This listbox will have the services added into it when discovered by avahi client.
@@ -181,7 +181,42 @@ This funtion creates a threaded avahi_poll and also initializes service browsers
 
 ### Important APIs created 
 ```C
+// for creating a new instance of the widget
+PpDnsWindow* pp_dns_window_new()
 
+// for initializing and configuring the widget to use avahi client 
+static void pp_dns_window_init(PpDnsWindow *self)
+
+// to run avahi
+static void start_avahi_in_background(PpDnsWindow *self)
+
+// callback for avahi service browser
+static void browse_callback(
+    AvahiServiceBrowser *b,
+    AvahiIfIndex interface,
+    AvahiProtocol protocol,
+    AvahiBrowserEvent event,
+    const char *name,
+    const char *type,
+    const char *domain,
+    AVAHI_GCC_UNUSED AvahiLookupResultFlags flags,
+    PpDnsWindow *self)
+
+// callback for avahi service resolver
+static void resolve_callback(
+    AvahiServiceResolver *r,
+    AVAHI_GCC_UNUSED AvahiIfIndex interface,
+    AVAHI_GCC_UNUSED AvahiProtocol protocol,
+    AvahiResolverEvent event,
+    const char *name,
+    const char *type,
+    const char *domain,
+    const char *host_name,
+    const AvahiAddress *address,
+    uint16_t port,
+    AvahiStringList *txt,
+    AvahiLookupResultFlags flags,
+    AVAHI_GCC_UNUSED PpDnsWindow *self)
 
 ```
 
