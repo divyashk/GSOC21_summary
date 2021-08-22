@@ -26,7 +26,7 @@ We will be needing composite widget for each service entry of the list as they a
 ## pp-dns-window .ui .c .h
 
 The design for this window in glade is very simple and looks something like
-<img src="window_glade.png">
+<img src="images/window_glade.png">
 
 
 This is pretty much an empty window with a single widget housed, i.e. is a GtkListBox. This listbox will have the services added into it when discovered by avahi client.
@@ -230,7 +230,7 @@ This widget therefore can be summed up to perform the following tasks-
 ## pp-dns-row .ui .c .h
 
 This widget is used to represent a single service and list's all the important details about this service. The design for this widget in glade looks like
-<img src="service_glade.png">
+<img src="images/service_glade.png">
 
 This widget uses the information fed to it by pp-dns-window's avahi resolve callback to populate all the details like Name, Type, Port, Hostname etc.
 
@@ -275,5 +275,5 @@ dns_sd_button_cb(CcPrintersPanel *self){
 
 ```
 This will create a new widget instance of the class pp-dns-window defined in the pp-dns-window.h header.
-<img src="printer_panel.png">
+<img src="images/printer_panel.png">
 
