@@ -26,7 +26,8 @@ We will be needing composite widget for each service entry of the list as they a
 ## pp-dns-window .ui .c .h
 
 The design for this window in glade is very simple and looks something like
-<img src="window_glade.png">
+
+
 
 This is pretty much an empty window with a single widget housed, i.e. is a GtkListBox. This listbox will have the services added into it when discovered by avahi client.
 
