@@ -6,6 +6,13 @@ These project is a combination of the gtk+  frontend library and the avahi-clien
 
 DNS-SD has been around for quite sometime now but most of the users are unaware of such services being broadcasted. This tool can list all such services with a click of a button. It does'nt just list them but also removes duplicates from different network interfaces, and also allow you to navigate to their respective administration website url. This makes using these services very user friendly.
 
+## Github repo link to -
+Stable branch
+https://github.com/divyashk/gnome-control-center/tree/devCups
+Unstable branch
+https://github.com/divyashk/gnome-control-center/tree/devCups-temp
+
+
 # Implementation details 
 
 The first challenge I faced was that of learning the gtk frontend using C and then design the UI for this tool. I decided to settle with a small button in the printing panel that opens another window where this list is going to be displayed as this design did'nt take a lot of space in the already present printing panel and helped segregate things for the user. After creating this window adding a list to it, I converted this window into a composite widget. Then I integerated avahi-client into this composite widgets. After successfully integerating the client in a threaded mode, I wrote apis for the widget to facilated the listing of services using avahi and coded the callbacks for removing/hiding these services.
@@ -31,7 +38,7 @@ The design for this window in glade is very simple and looks something like
 
 This is pretty much an empty window with a single widget housed, i.e. is a GtkListBox. This listbox will have the services added into it when discovered by avahi client.
 
-Now the avahi client adds the services into this list after it finishes resolving it. The code segment for it something like 
+Now the avahi client adds the services into this list after it finishes resolving it. The code segment for it is something like 
 ```C
 case AVAHI_RESOLVER_FOUND:
     {
